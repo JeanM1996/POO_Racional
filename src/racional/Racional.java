@@ -38,7 +38,7 @@ public class Racional {
         
     }
     
-    static Racional suma(Racional r1, Racional r2){
+    static Racional sumar(Racional r1, Racional r2){
         Racional respuesta= new Racional();
         int numerador;
         int denominador;
@@ -54,7 +54,24 @@ public class Racional {
         
         return respuesta;
     }
-    static Racional resta(Racional r1, Racional r2){
+    
+    public Racional sumarRacional(Racional r1){
+        Racional respuesta= new Racional();
+        int numeradorRespuesta;
+        int denominadorRespuesta;
+        if (r1.getDenominador()==this.denominador) {
+            numeradorRespuesta=r1.getNumerador()+this.numerador;
+            denominadorRespuesta=r1.getDenominador();
+        }else{
+            numeradorRespuesta= (r1.getNumerador()*this.denominador)+(r1.getDenominador()*this.numerador);
+            denominadorRespuesta =r1.getDenominador()*this.denominador;
+        }
+            respuesta.setNumerador(numeradorRespuesta);
+            respuesta.setDenominador(denominadorRespuesta);
+        
+        return simplificar(respuesta);
+    }
+    static Racional restar(Racional r1, Racional r2){
         Racional respuesta= new Racional();
         int numerador;
         int denominador;
@@ -70,8 +87,26 @@ public class Racional {
         
         return respuesta;
     }
+    
+    
+    public Racional restarRacional(Racional r1){
+        Racional respuesta= new Racional();
+        int numeradorRespuesta;
+        int denominadorRespuesta;
+        if (r1.getDenominador()==this.denominador) {
+            numeradorRespuesta=r1.getNumerador()-this.numerador;
+            denominadorRespuesta=r1.getDenominador();
+        }else{
+            numeradorRespuesta= (r1.getNumerador()*this.denominador)-(r1.getDenominador()*this.numerador);
+            denominadorRespuesta =r1.getDenominador()*this.denominador;
+        }
+            respuesta.setNumerador(numeradorRespuesta);
+            respuesta.setDenominador(denominadorRespuesta);
+        
+        return simplificar(respuesta);
+    }
 
-    static Racional multiplicacion(Racional r1, Racional r2){
+    static Racional multiplicar(Racional r1, Racional r2){
         Racional respuesta= new Racional();
         int numerador= (r1.getNumerador()*r2.getNumerador());
         int denominador =r1.getDenominador()*r2.getDenominador();
@@ -80,8 +115,18 @@ public class Racional {
         respuesta.setDenominador(denominador);
         return respuesta;
     }    
+    
+    public Racional multiplicarRacional(Racional r1){
+        Racional respuesta= new Racional();
+        int numeradorRespuesta= (r1.getNumerador()*this.numerador);
+        int denominadorRespuesta =r1.getDenominador()*this.denominador;
+        
+        respuesta.setNumerador(numeradorRespuesta);
+        respuesta.setDenominador(denominadorRespuesta);
+        return simplificar(respuesta);
+    }    
 
-    static Racional division(Racional r1, Racional r2){
+    static Racional dividir(Racional r1, Racional r2){
         Racional respuesta= new Racional();
         int numerador= r1.getNumerador()*r2.getDenominador();
         int denominador =r1.getDenominador()*r2.getNumerador();
@@ -91,13 +136,40 @@ public class Racional {
         return respuesta;
     }    
     
+    public Racional dividirRacional(Racional r1){
+        Racional respuesta= new Racional();
+        int numeradorR= r1.getNumerador()*this.denominador;
+        int denominadorR =r1.getDenominador()*this.numerador;
+        respuesta.setNumerador(numeradorR);        
+        respuesta.setDenominador(denominadorR);
+        return respuesta;
+    }    
+    
     static double toDecimal (Racional r){
         return r.getNumerador()/r.getDenominador(); 
     }
     
-    static String printRacional (Racional r){
+    static String toString (Racional r){
         return r.getNumerador()+"/"+r.getDenominador();
     }
     
-    
+    public Racional simplificar(Racional r1){
+        Racional resultado= new Racional();
+        if (r1.getNumerador()!=0) {
+            int n1=gcd(Math.abs(r1.getNumerador()),r1.getDenominador());
+            int numerador=r1.getNumerador()/n1;
+            int denominador=r1.getDenominador()/n1;
+        }
+        
+        return resultado;
+    }
+    public int gcd(int v1,int v2){
+        while(v1!=v2){
+            if (v1>v2) {
+                v1=v1-v2;
+            }else
+                v2=v2-v1;
+        }
+        return v1;
+    }
 }
