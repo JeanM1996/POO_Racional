@@ -61,12 +61,12 @@ public class Racional {
         Racional resultado = new Racional();
         int numeradorR;
         int denominadorR;
-        if(denominador==f.getDenominador()){
-            numeradorR=numerador-f.getNumerador();
-            denominadorR=denominador;
+        if(this.denominador==f.getDenominador()){
+            numeradorR=this.numerador-f.getNumerador();
+            denominadorR=this.denominador;
         }else{
-           numeradorR= (numerador*f.getDenominador())-(denominador*f.getNumerador());
-           denominadorR =denominador*f.getDenominador();
+           numeradorR= (this.numerador*f.getDenominador())-(this.denominador*f.getNumerador());
+           denominadorR =this.denominador*f.getDenominador();
         }
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
@@ -77,8 +77,8 @@ public class Racional {
     //multiplicar fracciones
     public Racional multiplicar(Racional f) {
         Racional resultado = new Racional();
-        int numeradorR=numerador*f.getNumerador();
-        int denominadorR=denominador*f.getDenominador();
+        int numeradorR=this.numerador*f.getNumerador();
+        int denominadorR=this.denominador*f.getDenominador();
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
         resultado.simplificar();  //se simplifica antes de devolverla
@@ -88,8 +88,8 @@ public class Racional {
     //dividir fracciones
     public Racional dividir(Racional f) {
         Racional resultado = new Racional();
-        int numeradorR=numerador*f.getDenominador();
-        int denominadorR=denominador*f.getNumerador();
+        int numeradorR=this.numerador*f.getDenominador();
+        int denominadorR=this.denominador*f.getNumerador();
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
         resultado.simplificar();  //se simplifica antes de devolverlo
@@ -117,9 +117,10 @@ public class Racional {
         int n = mcd(); //se calcula el mcd de la fracción
         numerador = numerador / n;
         denominador = denominador / n;
+        
     }
     @Override
     public String toString() {
-        return numerador + "/" + denominador;
+        return this.numerador + "/" + this.denominador;
     }     
 }
