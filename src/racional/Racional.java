@@ -38,83 +38,88 @@ public class Racional {
         
     }
         
-    public Racional sumarRacional(Racional r1){
-        Racional respuesta= new Racional();
-        int numeradorRespuesta;
-        int denominadorRespuesta;
-        if (r1.getDenominador()==this.denominador) {
-            numeradorRespuesta=r1.getNumerador()+this.numerador;
-            denominadorRespuesta=r1.getDenominador();
+ //sumar fracciones
+    public Racional sumar(Racional f) {
+        Racional resultado = new Racional();
+        int numeradorR;
+        int denominadorR;
+        if(denominador==f.getDenominador()){
+            numeradorR=numerador+f.getNumerador();
+            denominadorR=denominador;
         }else{
-            numeradorRespuesta= (r1.getNumerador()*this.denominador)+(r1.getDenominador()*this.numerador);
-            denominadorRespuesta =r1.getDenominador()*this.denominador;
+           numeradorR= (numerador*f.getDenominador())+(denominador*f.getNumerador());
+           denominadorR =denominador*f.getDenominador();
         }
-            respuesta.setNumerador(numeradorRespuesta);
-            respuesta.setDenominador(denominadorRespuesta);
-        
-        return simplificar(respuesta);
+        resultado.setNumerador(numeradorR);
+        resultado.setDenominador(denominadorR);
+        resultado.simplificar();  //se simplifica antes de devolverla
+        return resultado;
     }
-
-    
-    
-    public Racional restarRacional(Racional r1){
-        Racional respuesta= new Racional();
-        int numeradorRespuesta;
-        int denominadorRespuesta;
-        if (r1.getDenominador()==this.denominador) {
-            numeradorRespuesta=r1.getNumerador()-this.numerador;
-            denominadorRespuesta=r1.getDenominador();
+   
+    //restar fracciones
+    public Racional restar(Racional f) {
+        Racional resultado = new Racional();
+        int numeradorR;
+        int denominadorR;
+        if(denominador==f.getDenominador()){
+            numeradorR=numerador-f.getNumerador();
+            denominadorR=denominador;
         }else{
-            numeradorRespuesta= (r1.getNumerador()*this.denominador)-(r1.getDenominador()*this.numerador);
-            denominadorRespuesta =r1.getDenominador()*this.denominador;
+           numeradorR= (numerador*f.getDenominador())-(denominador*f.getNumerador());
+           denominadorR =denominador*f.getDenominador();
         }
-            respuesta.setNumerador(numeradorRespuesta);
-            respuesta.setDenominador(denominadorRespuesta);
-        
-        return simplificar(respuesta);
+        resultado.setNumerador(numeradorR);
+        resultado.setDenominador(denominadorR);
+        resultado.simplificar();  //se simplifica antes de devolverla
+        return resultado;
+    }
+   
+    //multiplicar fracciones
+    public Racional multiplicar(Racional f) {
+        Racional resultado = new Racional();
+        int numeradorR=numerador*f.getNumerador();
+        int denominadorR=denominador*f.getDenominador();
+        resultado.setNumerador(numeradorR);
+        resultado.setDenominador(denominadorR);
+        resultado.simplificar();  //se simplifica antes de devolverla
+        return resultado;
     }
 
-
-    
-    public Racional multiplicarRacional(Racional r1){
-        Racional respuesta= new Racional();
-        int numeradorRespuesta= (r1.getNumerador()*this.numerador);
-        int denominadorRespuesta =r1.getDenominador()*this.denominador;
-        
-        respuesta.setNumerador(numeradorRespuesta);
-        respuesta.setDenominador(denominadorRespuesta);
-        return simplificar(respuesta);
-    }    
-
-
-    public Racional dividirRacional(Racional r1){
-        Racional respuesta= new Racional();
-        int numeradorR= r1.getNumerador()*this.denominador;
-        int denominadorR =r1.getDenominador()*this.numerador;
-        respuesta.setNumerador(numeradorR);        
-        respuesta.setDenominador(denominadorR);
-        return simplificar(respuesta);
-    }    
-    
-    static double toDecimal (Racional r){
-        return r.getNumerador()/r.getDenominador(); 
+    //dividir fracciones
+    public Racional dividir(Racional f) {
+        Racional resultado = new Racional();
+        int numeradorR=numerador*f.getDenominador();
+        int denominadorR=denominador*f.getNumerador();
+        resultado.setNumerador(numeradorR);
+        resultado.setDenominador(denominadorR);
+        resultado.simplificar();  //se simplifica antes de devolverlo
+        return resultado;
     }
-    
-    static String toString (Racional r){
-        return r.getNumerador()+"/"+r.getDenominador();
+   
+    //Cálculo del máximo común divisor por el algoritmo de Euclides
+    private int mcd() {
+        int u = Math.abs(numerador); //valor absoluto del numerador
+        int v = Math.abs(denominador); //valor absoluto del denominador
+        if (v == 0) {
+            return u;
+        }
+        int r;
+        while (v != 0) {
+            r = u % v;
+            u = v;
+            v = r;
+        }
+        return u;
     }
-    
-	private Racional simplificar(Racional r) {
-		int i = 2;
-		while((i < 100) && i <= r.getNumerador() && i <= r.getDenominador()) {
-			if((r.getNumerador() % i == 0) && (r.getDenominador() % i == 0)) {
-				r.setNumerador(r.getNumerador() / i);
-				r.setDenominador(r.getDenominador() / i);
-				i = 2;
-			}
-			else
-				i++;
-		}
-		return this;
-	}
+
+    //método para simplificar fracciones
+    private void simplificar() {
+        int n = mcd(); //se calcula el mcd de la fracción
+        numerador = numerador / n;
+        denominador = denominador / n;
+    }
+    @Override
+    public String toString() {
+        return numerador + "/" + denominador;
+    }     
 }
