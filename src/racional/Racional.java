@@ -37,24 +37,7 @@ public class Racional {
         }
         
     }
-    
-    static Racional sumar(Racional r1, Racional r2){
-        Racional respuesta= new Racional();
-        int numerador;
-        int denominador;
-        if (r1.getDenominador()==r2.getDenominador()) {
-            numerador=r1.getNumerador()+r2.getNumerador();
-            denominador=r1.getDenominador();
-        }else{
-            numerador= (r1.getNumerador()*r2.getDenominador())+(r1.getDenominador()*r2.getNumerador());
-            denominador =r1.getDenominador()*r2.getDenominador();
-        }
-            respuesta.setNumerador(numerador);
-            respuesta.setDenominador(denominador);
         
-        return respuesta;
-    }
-    
     public Racional sumarRacional(Racional r1){
         Racional respuesta= new Racional();
         int numeradorRespuesta;
@@ -71,22 +54,7 @@ public class Racional {
         
         return simplificar(respuesta);
     }
-    static Racional restar(Racional r1, Racional r2){
-        Racional respuesta= new Racional();
-        int numerador;
-        int denominador;
-        if (r1.getDenominador()==r2.getDenominador()) {
-            numerador=r1.getNumerador()-r2.getNumerador();
-            denominador=r1.getDenominador();
-        }else{
-            numerador= (r1.getNumerador()*r2.getDenominador())-(r1.getDenominador()*r2.getNumerador());
-            denominador =r1.getDenominador()*r2.getDenominador();
-        }
-            respuesta.setNumerador(numerador);
-            respuesta.setDenominador(denominador);
-        
-        return respuesta;
-    }
+
     
     
     public Racional restarRacional(Racional r1){
@@ -106,15 +74,7 @@ public class Racional {
         return simplificar(respuesta);
     }
 
-    static Racional multiplicar(Racional r1, Racional r2){
-        Racional respuesta= new Racional();
-        int numerador= (r1.getNumerador()*r2.getNumerador());
-        int denominador =r1.getDenominador()*r2.getDenominador();
-        
-        respuesta.setNumerador(numerador);
-        respuesta.setDenominador(denominador);
-        return respuesta;
-    }    
+
     
     public Racional multiplicarRacional(Racional r1){
         Racional respuesta= new Racional();
@@ -126,23 +86,14 @@ public class Racional {
         return simplificar(respuesta);
     }    
 
-    static Racional dividir(Racional r1, Racional r2){
-        Racional respuesta= new Racional();
-        int numerador= r1.getNumerador()*r2.getDenominador();
-        int denominador =r1.getDenominador()*r2.getNumerador();
-        
-        respuesta.setNumerador(numerador);        
-        respuesta.setDenominador(denominador);
-        return respuesta;
-    }    
-    
+
     public Racional dividirRacional(Racional r1){
         Racional respuesta= new Racional();
         int numeradorR= r1.getNumerador()*this.denominador;
         int denominadorR =r1.getDenominador()*this.numerador;
         respuesta.setNumerador(numeradorR);        
         respuesta.setDenominador(denominadorR);
-        return respuesta;
+        return simplificar(respuesta);
     }    
     
     static double toDecimal (Racional r){
@@ -153,23 +104,17 @@ public class Racional {
         return r.getNumerador()+"/"+r.getDenominador();
     }
     
-    public Racional simplificar(Racional r1){
-        Racional resultado= new Racional();
-        if (r1.getNumerador()!=0) {
-            int n1=gcd(Math.abs(r1.getNumerador()),r1.getDenominador());
-            int numerador=r1.getNumerador()/n1;
-            int denominador=r1.getDenominador()/n1;
-        }
-        
-        return resultado;
-    }
-    public int gcd(int v1,int v2){
-        while(v1!=v2){
-            if (v1>v2) {
-                v1=v1-v2;
-            }else
-                v2=v2-v1;
-        }
-        return v1;
-    }
+	private Racional simplificar(Racional r) {
+		int i = 2;
+		while((i < 100) && i <= r.getNumerador() && i <= r.getDenominador()) {
+			if((r.getNumerador() % i == 0) && (r.getDenominador() % i == 0)) {
+				r.setNumerador(r.getNumerador() / i);
+				r.setDenominador(r.getDenominador() / i);
+				i = 2;
+			}
+			else
+				i++;
+		}
+		return this;
+	}
 }

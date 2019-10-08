@@ -36,16 +36,9 @@ public class TestRacional {
         
         
         
-        Racional suma = Racional.sumar(r1,r2);
-        Racional resta= Racional.restar(r1, r2);
-        Racional multiplicacion = Racional.multiplicar(r1, r2);
-        Racional div= Racional.dividir(r1, r2);
-        Racional resultado=r2.dividirRacional(r1);
-        
-        System.out.println(Racional.toString(r1)+"+"+Racional.toString(r2)+"="+Racional.toString(suma));
-        System.out.println(Racional.toString(r1)+"-"+Racional.toString(r2)+"="+Racional.toString(resta));
-        System.out.println(Racional.toString(r1)+"*"+Racional.toString(r2)+"="+Racional.toString(multiplicacion));
-        System.out.println(Racional.toString(r1)+"/"+Racional.toString(r2)+"="+Racional.toString(div));
+        //Racional resultado=r2.dividirRacional(r1);
+        Racional resultado=r1.sumarRacional(r2);
+
         System.out.println(Racional.toString(r1)+"/"+Racional.toString(r2)+"="+Racional.toString(resultado));
                 
         
