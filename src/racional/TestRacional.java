@@ -45,6 +45,7 @@ public class TestRacional {
 
         System.out.println(r1.toString()+"+"+r2.toString()+"="+suma.toString());
         System.out.println(r1.toString()+"-"+r2.toString()+"="+resta.toString());
+        System.out.println("Method2"+r1.toString()+"-"+r2.toString()+"="+r1.restar2(r2).toString());
         System.out.println(r1.toString()+"*"+r2.toString()+"="+multiplicacion.toString());
         System.out.println(r1.toString()+"/"+r2.toString()+"="+division.toString());
         

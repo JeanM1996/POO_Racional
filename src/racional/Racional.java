@@ -62,11 +62,11 @@ public class Racional {
         int numeradorR;
         int denominadorR;
         if(this.denominador==f.getDenominador()){
-            numeradorR=this.numerador-f.getNumerador();
-            denominadorR=this.denominador;
+            numeradorR=numerador-f.getNumerador();
+            denominadorR=denominador;
         }else{
-           numeradorR= (this.numerador*f.getDenominador())-(this.denominador*f.getNumerador());
-           denominadorR =this.denominador*f.getDenominador();
+           numeradorR= (numerador*f.getDenominador())-(denominador*f.getNumerador());
+           denominadorR =denominador*f.getDenominador();
         }
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
@@ -77,8 +77,8 @@ public class Racional {
     //multiplicar fracciones
     public Racional multiplicar(Racional f) {
         Racional resultado = new Racional();
-        int numeradorR=this.numerador*f.getNumerador();
-        int denominadorR=this.denominador*f.getDenominador();
+        int numeradorR=numerador*f.getNumerador();
+        int denominadorR=denominador*f.getDenominador();
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
         resultado.simplificar();  //se simplifica antes de devolverla
@@ -88,8 +88,8 @@ public class Racional {
     //dividir fracciones
     public Racional dividir(Racional f) {
         Racional resultado = new Racional();
-        int numeradorR=this.numerador*f.getDenominador();
-        int denominadorR=this.denominador*f.getNumerador();
+        int numeradorR=numerador*f.getDenominador();
+        int denominadorR=denominador*f.getNumerador();
         resultado.setNumerador(numeradorR);
         resultado.setDenominador(denominadorR);
         resultado.simplificar();  //se simplifica antes de devolverlo
@@ -118,6 +118,30 @@ public class Racional {
         numerador = numerador / n;
         denominador = denominador / n;
         
+    }
+    
+    private Racional negar(){
+        return new Racional (-1*numerador,denominador);
+    }
+    
+    public Racional sumar2(Racional r){
+        return new Racional(numerador*r.getDenominador()+denominador*r.getNumerador(),denominador*r.getDenominador());
+    }
+    
+    public Racional restar2(Racional r2){
+        return sumar2(r2.negar());
+    }
+    
+    public boolean esMenorQue(Racional r){
+        return numerador*r.getDenominador()
+                <r.getNumerador()*denominador;
+    }
+    public Racional obtenerMayor(Racional r){
+        if (this.esMenorQue(r)) {
+            return r;
+        }else{
+            return this;
+        }
     }
     @Override
     public String toString() {
